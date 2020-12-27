@@ -1,0 +1,3 @@
+include ':htmlAnalysis'
+include ':app'
+rootProject.name = "AndroidHtmlAnalysis"

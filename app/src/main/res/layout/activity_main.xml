@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cardview_shadow_start_color"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tv_action"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="解析数据"
+        android:background="#FFFFF0"
+        android:textSize="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/ed_url"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="输入url"
+        android:paddingLeft="5dp"
+        android:background="@drawable/link_item_bg"
+        android:layout_margin="15dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:minHeight="100dp"
+        android:padding="10dp"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/link_item_bg">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="15dp"
+            android:textColor="#000000"
+            tools:text="我是标题"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/thumb"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="10dp"
+            fresco:actualImageScaleType="centerInside"
+            fresco:roundedCornerRadius="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            fresco:layout_constraintTop_toTopOf="@+id/thumb"
+            fresco:layout_constraintRight_toLeftOf="@+id/thumb"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="14dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#a3a3a3"
+            tools:text="我是内容"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
