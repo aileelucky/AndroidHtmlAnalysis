@@ -1,5 +1,6 @@
 package com.gu.htmlanalysis.platform;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.gu.htmlanalysis.bean.HtmlContentBean;
@@ -73,17 +74,31 @@ public class PlatformUtils {
         }
         htmlBean.title = document.getElementsByTag("title").text();
         htmlBean.url = document.location();
-        Elements imgs = document.getElementsByTag("img");
-        if(imgs != null && imgs.size()>0){
-            htmlBean.setImage(imgs.get(0).attr("abs:src"));
-        }
+
 
         String description = null;
         Elements meta = document.getElementsByTag("meta");
         for(Element element : meta){
             if(hasDescription(element.attr("name"))){
                 description = element.attr("content");
-                break;
+                continue;
+            }
+            if(hasDescription(element.attr("property"))){
+                description = element.attr("content");
+                continue;
+            }
+            if(hasImage(element.attr("name"))){
+                htmlBean.setImage(element.attr("content"));
+                continue;
+            }
+            if(hasImage(element.attr("property"))){
+                htmlBean.setImage(element.attr("content"));
+            }
+        }
+        if(TextUtils.isEmpty(htmlBean.getImage())){
+            Elements imgs = document.getElementsByTag("img");
+            if(imgs != null && imgs.size()>0){
+                htmlBean.setImage(imgs.get(0).attr("abs:src"));
             }
         }
         htmlBean.setDescription(description);
@@ -93,6 +108,13 @@ public class PlatformUtils {
     //判断是否含描述字段
     private static boolean hasDescription(String attributeKey){
         if(attributeKey.contains("description") || attributeKey.contains("desc")){
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean hasImage(String attributeKey){
+        if(attributeKey.contains("image")){
             return true;
         }
         return false;

@@ -20,39 +20,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class UrlUtils {
-
-    public static String getDomain(String url) {
-        String domain = "";
-        if (!TextUtils.isEmpty(url) && url.startsWith("http")) {
-            domain = Uri.parse(url).getHost();
-        }
-        return domain;
-    }
-    public static String getHtml(String pathUrl){
-        try{
-            URL url = new URL(pathUrl);
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(5 * 1000);
-            InputStream inStream = conn.getInputStream();//通过输入流获取html数据
-            byte[] data = readInputStream(inStream);//得到html的二进制数据
-            return new String(data, StandardCharsets.UTF_8);
-        }catch (Exception e){
-            return "";
-        }
-    }
-
-    public static byte[] readInputStream(InputStream inStream) throws Exception{
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int len = 0;
-        while( (len=inStream.read(buffer)) != -1 ){
-            outStream.write(buffer, 0, len);
-        }
-        inStream.close();
-        return outStream.toByteArray();
-    }
-
     public static String getContent(HtmlContentBean htmlBean){
         if(htmlBean == null){
             return "";
@@ -69,15 +36,25 @@ public class UrlUtils {
         return "";
     }
 
+    public static String getDomain(String url) {
+        String domain = "";
+        if (!TextUtils.isEmpty(url) && url.startsWith("http")) {
+            domain = Uri.parse(url).getHost();
+        }
+        return domain;
+    }
+
     public static void getHtmlBeanByUrl(Context context, String url, DownHtmlListener listener){
        new Thread(new Runnable() {
            @Override
            public void run() {
-                   Document document = Jsoup.parse(getHtml(url));
+               try {
+                   Document document = Jsoup.connect(url).get();
                    listener.success(analysisHtml(document,url));
 
-
-
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
            }
        }).start();
     }

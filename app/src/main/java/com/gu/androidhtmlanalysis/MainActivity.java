@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tv_action).setOnClickListener(v -> {
             String urlEdit = edUrl.getText().toString();
             String url = !TextUtils.isEmpty(urlEdit) ? urlEdit : localUrl;
+            edUrl.setText("");
             UrlUtils.getHtmlBeanByUrl(this, url, new DownHtmlListener() {
                 @Override
                 public void success(HtmlContentBean bean) {
