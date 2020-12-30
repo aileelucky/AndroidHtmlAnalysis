@@ -13,6 +13,7 @@ import org.jsoup.select.Elements;
 
 /**
  * Created by 顾佳佳 on 2020/12/27.
+ * 此处增加定制化网站识别
  */
 public class PlatformUtils {
 
@@ -65,7 +66,7 @@ public class PlatformUtils {
     public static HtmlContentBean getSimpleThumb(Document document,String url){
         HtmlContentBean htmlBean = new HtmlContentBean();
 
-       Elements elements = document.getElementsByTag("script");
+//       Elements elements = document.getElementsByTag("script");
 
 
         htmlBean.title = document.getElementsByTag("title").text();
