@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.gu.htmlanalysis.bean.HtmlContentBean;
+import com.gu.htmlanalysis.utils.Jsons;
 
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
@@ -67,11 +68,6 @@ public class PlatformUtils {
        Elements elements = document.getElementsByTag("script");
 
 
-        for(Element element : elements){
-            String title = element.data();
-            String[] elScriptList = title.split("var");
-            Log.i("ailee",""+ elScriptList);
-        }
         htmlBean.title = document.getElementsByTag("title").text();
         htmlBean.url = document.location();
 
