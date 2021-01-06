@@ -7,7 +7,8 @@ android  通过url自动获取标题、描述、图片
  UrlContentCatch.getHtmlBeanByUrl(this, url, new DownHtmlListener() {
                 @Override
                 public void success(HtmlContentBean bean) {
-                // do you can do
+ 
+                  // do you can do
                 }
 
                 @Override
